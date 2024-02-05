@@ -3,47 +3,71 @@ function getComputerChoice(){ //0 = rock, 1 = paper, 2 = scissor
 
 }
 
-function findWinner(playerSelection,computerSelection){
+function findWinner(playerSelection){
+
+    computerSelection = getComputerChoice();
     if(playerSelection == computerSelection){
-        alert("Tie!");
+        result.textContent = "Tie";
     }
     else if(playerSelection == 0 && computerSelection == 1){
-        alert("You lost! Paper beats rock");
+        result.textContent = "You lost! Paper beats rock";
+        cmtrScore += 1;
     }
     else if(playerSelection == 1 && computerSelection == 2){
-        alert("You lost! Scissors beats paper");
+        result.textContent = "You lost! Scissors beats paper";
+        cmtrScore += 1;
     }
     else if(playerSelection == 2 && computerSelection == 0){
-        alert("You lost! Rock beats Scissors");
+        result.textContent = "You lost! Rock beats Scissors";
+        cmtrScore += 1;
     }
     else if(playerSelection == 1 && computerSelection == 0){
-        alert("You won! Paper beats rock");
+        result.textContent = "You won! Paper beats rock";
+        userScore += 1;
     }
     else if(playerSelection == 2 && computerSelection == 1){
-        alert("You won! Scissors beats paper");
+        result.textContent = "You won! Scissors beats paper";
+        userScore += 1;
     }
     else if(playerSelection == 0 && computerSelection == 2){
-        alert("You won! Rock beats Scissors");
+        result.textContent = "You won! Rock beats Scissors";
+        userScore += 1;
+    }
+    score = document.createTextNode(`(${userScore} - ${cmtrScore})`)
+    result.appendChild(score);
+
+    if(userScore == 5){
+        alert("You won!");
+        rock.disabled = true;
+        paper.disabled = true;
+        scissors.disabled = true;
+    }
+
+    if(cmtrScore == 5){
+        alert("You lost!");
+        rock.disabled = true;
+        paper.disabled = true;
+        scissors.disabled = true;
     }
 }
 
-function translate(playerSelectionWord){ //translates player choice to numbers
-    if (playerSelectionWord == "rock"){
-        return 0;
-    }
+let score;
+let userScore = 0;
+let cmtrScore = 0;
 
-    else if(playerSelectionWord == "paper"){
-        return 1;
-    }
+const rock = document.getElementById("rock");
+const paper = document.getElementById("paper");
+const scissors = document.getElementById("scissors")
+const result = document.getElementById("result");
 
-    else if(playerSelectionWord == "scissors"){
-        return 2;
-    }
-    
-}
+rock.addEventListener("click",()=>{findWinner(0)});
+paper.addEventListener("click",()=>{findWinner(1)});
+scissors.addEventListener("click",()=>{findWinner(2)});
 
-let playerSelectionWord = prompt("Enter choice");
-let playerSelection = translate(playerSelectionWord);
-let computerSelection = getComputerChoice();
 
-findWinner(playerSelection,computerSelection);
+
+
+
+
+
+
